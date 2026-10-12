@@ -2,6 +2,8 @@
 
 event-replay-verifier audits a serialized event stream for replay determinism: out-of-order, duplicate, and missing sequence numbers, plus malformed events, and verifies that a canonical projection of the stream is order-independent. It sits *above* event-sourcing frameworks — it audits the log you exported, it is not a store or a bus. Confidence: High (≥80%) for the detection classes, per the 55-check suite.
 
+<p align="center"><img src="docs/demo.gif" alt="demo" width="720"></p>
+
 ## Problem
 
 Event-sourced systems break in boring ways that only show up on replay: a producer crashed mid-batch and left a gap in sequence numbers, a retry duplicated an event, a partition reorder scrambled arrival order, or a malformed record snuck into the log. Everything *looks* fine until you rebuild state from the stream and get a different answer than production had. What is needed is a deterministic, offline check of the stream itself.
